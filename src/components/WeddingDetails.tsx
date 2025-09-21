@@ -9,13 +9,13 @@ export default function WeddingDetails() {
   const ceremonyDetails = [
     {
       title: t('schedule.ceremonyName'),
-      time: "09:00 WIB",
+      time: "09:00 WITA",
       location: "Masjid Al-Ikhlas, Jakarta",
       description: t('details.ceremonyDesc')
     },
     {
       title: t('schedule.receptionName'),
-      time: "11:00 - 14:00 WIB",
+      time: "11:00 - 14:00 WITA",
       location: "Gedung Serbaguna, Jakarta",
       description: t('details.receptionDesc')
     }

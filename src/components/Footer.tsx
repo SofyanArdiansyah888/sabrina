@@ -144,7 +144,7 @@ export default function Footer() {
                     })}
                   </p>
                   <p className="font-merriweather text-sm text-gray-600">
-                    {mainEvent.time} - {mainEvent.endTime} WIB
+                    {mainEvent.time} - {mainEvent.endTime} WITA
                   </p>
                   <div className="bg-rose-50 rounded-xl p-3 mt-3">
                     <p className="text-rose-600 font-lora text-sm">

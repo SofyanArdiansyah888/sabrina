@@ -8,7 +8,7 @@ export default function BackgroundMusic() {
   const [isVisible] = useState(true) // Show component but hide controls
   const [isPlaying, setIsPlaying] = useState(false)
   const [isMuted, setIsMuted] = useState(true) // Start muted for autoplay
-  const [volume, setVolume] = useState(0.5)
+  const [volume, setVolume] = useState(1.0)
   const [showNotification, setShowNotification] = useState(false)
   const [hasInteracted, setHasInteracted] = useState(false)
   const audioRef = useRef<HTMLAudioElement>(null)
@@ -222,13 +222,13 @@ export default function BackgroundMusic() {
 
 
 
-          {/* Floating Music Controls */}
+          {/* Floating Music Controls - Hidden */}
           <motion.div
             initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
+            animate={{ opacity: 0, scale: 0 }}
             exit={{ opacity: 0, scale: 0 }}
             transition={{ duration: 0.5, delay: 0.5 }}
-            className="fixed bottom-24 right-4 z-40 md:bottom-4"
+            className="fixed bottom-24 right-4 z-40 md:bottom-4 hidden"
           >
             {/* Main Music Button */}
             <motion.button
@@ -281,53 +281,9 @@ export default function BackgroundMusic() {
               )}
             </motion.button>
 
-            {/* Volume Control */}
-            {isPlaying && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                className="absolute bottom-16 right-0 bg-white/95 backdrop-blur-lg rounded-2xl shadow-xl p-3 border border-rose-200"
-              >
-                <div className="flex items-center space-x-2 min-w-[120px]">
-                  <motion.button
-                    onClick={toggleMute}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="text-gray-600 hover:text-rose-500 transition-colors"
-                  >
-                    {isMuted ? (
-                      <VolumeX className="w-4 h-4" />
-                    ) : (
-                      <Volume2 className="w-4 h-4" />
-                    )}
-                  </motion.button>
-                  
-                  <input
-                    type="range"
-                    min="0"
-                    max="1"
-                    step="0.1"
-                    value={volume}
-                    onChange={handleVolumeChange}
-                    className="flex-1 h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-                    style={{
-                      background: `linear-gradient(to right, #f43f5e 0%, #f43f5e ${volume * 100}%, #e5e7eb ${volume * 100}%, #e5e7eb 100%)`
-                    }}
-                  />
-                </div>
-              </motion.div>
-            )}
+            {/* Volume Control - Removed */}
             
-            {/* Tooltip */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 2 }}
-              className="absolute right-16 top-1/2 transform -translate-y-1/2 bg-black/80 text-white text-xs px-3 py-1 rounded-lg whitespace-nowrap pointer-events-none"
-            >
-              {isPlaying ? t('music.playing') : t('music.tooltip')}
-            </motion.div>
+            {/* Tooltip - Removed since controls are hidden */}
           </motion.div>
 
           {/* Hidden Audio Element with Aggressive Autoplay */}

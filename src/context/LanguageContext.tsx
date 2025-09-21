@@ -107,7 +107,7 @@ const translations = {
     // Common
     'common.scroll': 'Scroll untuk melihat lebih lanjut',
     'common.loading': 'Memuat undangan...',
-    'common.timezone': 'WIB',
+    'common.timezone': 'WITA',
   },
   en: {
     // Hero Section
@@ -204,7 +204,7 @@ const translations = {
     // Common
     'common.scroll': 'Scroll to see more',
     'common.loading': 'Loading invitation...',
-    'common.timezone': 'WIB',
+    'common.timezone': 'WITA',
   }
 }
 
