@@ -15,6 +15,7 @@ export default function BackgroundMusic() {
   // Define attemptAutoplay function outside useEffect
   const attemptAutoplay = async () => {
     if (!audioRef.current) {
+      console.log(isMuted)
       console.log('Audio ref not available')
       return false
     }
