@@ -33,7 +33,7 @@ export default function BackgroundMusic() {
       setIsPlaying(true)
       setIsMuted(true)
       
-      // Auto unmute after 500ms for immediate full volume
+      // Auto unmute immediately for instant full volume
       setTimeout(() => {
         if (audioRef.current && !audioRef.current.paused) {
           audioRef.current.muted = false
@@ -42,7 +42,7 @@ export default function BackgroundMusic() {
           setHasInteracted(true)
           console.log('Audio unmuted and set to full volume')
         }
-      }, 500)
+      }, 100)
       
       return true
       
