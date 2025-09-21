@@ -54,7 +54,7 @@ export default function CoupleProfile() {
                   className="relative w-48 h-48 sm:w-56 sm:h-56 mx-auto rounded-full overflow-hidden shadow-2xl border-4 border-white"
                 >
                   <img
-                    src="/images/Holagerphoto-225 (1).jpg"
+                    src="/images/holager-bride.jpg"
                     alt={config.couple.bride.fullName}
                     className="w-full h-full object-cover"
                   />
@@ -119,7 +119,7 @@ export default function CoupleProfile() {
                   className="relative w-48 h-48 sm:w-56 sm:h-56 mx-auto rounded-full overflow-hidden shadow-2xl border-4 border-white"
                 >
                   <img
-                    src="/images/Holagerphoto-32.jpg"
+                    src="/images/holager-groom.jpg"
                     alt={config.couple.groom.fullName}
                     className="w-full h-full object-cover"
                   />

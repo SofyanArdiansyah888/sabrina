@@ -6,11 +6,11 @@ import { useLanguage } from '../context/LanguageContext'
 
 // Gallery images from public assets
 const galleryImages = [
-  { id: 1, src: '/images/WhatsApp Image 2025-09-18 at 18.10.49_e1947f44.jpg', alt: 'Foto pre-wedding 1 - Riang & Yudha' },
-  { id: 2, src: '/images/WhatsApp Image 2025-09-18 at 18.14.57_826840b9.jpg', alt: 'Foto pre-wedding 2 - Riang & Yudha' },
-  { id: 3, src: '/images/WhatsApp Image 2025-09-18 at 18.14.58_0351cf00.jpg', alt: 'Foto pre-wedding 3 - Riang & Yudha' },
-  { id: 4, src: '/images/WhatsApp Image 2025-09-18 at 18.14.58_c24f53e0.jpg', alt: 'Foto pre-wedding 4 - Riang & Yudha' },
-  { id: 5, src: '/images/WhatsApp Image 2025-09-18 at 18.14.58_ecf0d6f3.jpg', alt: 'Foto pre-wedding 5 - Riang & Yudha' },
+  { id: 1, src: '/images/whatsapp-1.jpg', alt: 'Foto pre-wedding 1 - Riang & Yudha' },
+  { id: 2, src: '/images/whatsapp-2.jpg', alt: 'Foto pre-wedding 2 - Riang & Yudha' },
+  { id: 3, src: '/images/whatsapp-3.jpg', alt: 'Foto pre-wedding 3 - Riang & Yudha' },
+  { id: 4, src: '/images/whatsapp-4.jpg', alt: 'Foto pre-wedding 4 - Riang & Yudha' },
+  { id: 5, src: '/images/whatsapp-5.jpg', alt: 'Foto pre-wedding 5 - Riang & Yudha' },
   { id: 6, src: '/images/baru.jpg', alt: 'Foto pre-wedding 6 - Riang & Yudha' },
   { id: 7, src: '/images/baru2.jpg', alt: 'Foto pre-wedding 7 - Riang & Yudha' },
   { id: 8, src: '/images/baru3.jpg', alt: 'Foto pre-wedding 8 - Riang & Yudha' },
