@@ -93,7 +93,7 @@ const translations = {
     
     // Music
     'music.tooltip': 'Klik untuk musik',
-    'music.playing': 'Musik: Tabola Bale',
+    'music.playing': 'Musik: I want a grow old with you',
     
     // Countdown Timer
     'countdown.title': 'Menuju Hari Bahagia',
@@ -190,7 +190,7 @@ const translations = {
     
     // Music
     'music.tooltip': 'Click for music',
-    'music.playing': 'Music: Tabola Bale',
+    'music.playing': 'Music: I want a grow old with you',
     
     // Countdown Timer
     'countdown.title': 'Towards Our Happy Day',
