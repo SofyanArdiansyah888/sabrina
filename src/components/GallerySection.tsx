@@ -15,7 +15,7 @@ const galleryImages = [
   { id: 7, src: '/images/baru2.jpg', alt: 'Foto pre-wedding 7 - Riang & Yudha' },
   { id: 8, src: '/images/baru3.jpg', alt: 'Foto pre-wedding 8 - Riang & Yudha' },
   { id: 9, src: '/images/baru4.jpg', alt: 'Foto pre-wedding 9 - Riang & Yudha' },
-  { id: 10, src: '/images/baru5.jpg', alt: 'Foto pre-wedding 10 - Riang & Yudha' },
+  // { id: 10, src: '/images/baru5.jpg', alt: 'Foto pre-wedding 10 - Riang & Yudha' },
 ]
 
 export default function GallerySection() {
