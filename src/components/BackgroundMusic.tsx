@@ -6,7 +6,7 @@ export default function BackgroundMusic() {
   // const { t } = useLanguage()
   const [isVisible] = useState(true) // Show component but hide controls
   const [isPlaying, setIsPlaying] = useState(false)
-  const [_, setIsMuted] = useState(true) // Start muted for autoplay
+  const [isMuted, setIsMuted] = useState(true) // Start muted for autoplay
   const [volume] = useState(1.0)
   const [showNotification, setShowNotification] = useState(false)
   const [hasInteracted, setHasInteracted] = useState(false)
@@ -15,45 +15,39 @@ export default function BackgroundMusic() {
   // Define attemptAutoplay function outside useEffect
   const attemptAutoplay = async () => {
     if (!audioRef.current) {
+      console.log('Audio ref not available')
       return false
     }
     
+    console.log('Attempting autoplay...')
+    
     try {
-      // Set audio properties
+      // First try: muted autoplay for better browser compatibility
       audioRef.current.volume = volume
       audioRef.current.loop = true
-      audioRef.current.muted = false
+      audioRef.current.muted = true
       
-      // Try to play
       await audioRef.current.play()
+      console.log('Muted autoplay successful')
       setIsPlaying(true)
-      setIsMuted(false)
-      setHasInteracted(true)
+      setIsMuted(true)
+      
+      // Auto unmute after 500ms for immediate full volume
+      setTimeout(() => {
+        if (audioRef.current && !audioRef.current.paused) {
+          audioRef.current.muted = false
+          audioRef.current.volume = volume
+          setIsMuted(false)
+          setHasInteracted(true)
+          console.log('Audio unmuted and set to full volume')
+        }
+      }, 500)
       
       return true
       
     } catch (error) {
-      // Fallback: try muted autoplay
-      try {
-        audioRef.current.muted = true
-        await audioRef.current.play()
-        setIsPlaying(true)
-        setIsMuted(true)
-        
-        // Auto unmute after 3 seconds
-        setTimeout(() => {
-          if (audioRef.current && isPlaying) {
-            audioRef.current.muted = false
-            setIsMuted(false)
-            setHasInteracted(true)
-          }
-        }, 3000)
-        
-        return true
-        
-      } catch (mutedError) {
-        return false
-      }
+      console.error('Autoplay failed:', error)
+      return false
     }
   }
 
@@ -67,14 +61,17 @@ export default function BackgroundMusic() {
       }
     }
 
-    // Immediate attempt
+    // Multiple immediate attempts
     tryAutoplay()
-    
-    // Additional attempts
+    setTimeout(tryAutoplay, 100)
+    setTimeout(tryAutoplay, 300)
     setTimeout(tryAutoplay, 500)
     setTimeout(tryAutoplay, 1000)
     setTimeout(tryAutoplay, 2000)
     setTimeout(tryAutoplay, 5000)
+    
+    // Setup interaction listeners immediately
+    setupInteractionListeners()
   }, [])
 
   // Continuous autoplay attempts
@@ -291,7 +288,7 @@ export default function BackgroundMusic() {
             preload="auto"
             loop
             autoPlay
-            muted={false}
+            muted={true}
             playsInline
             crossOrigin="anonymous"
             onEnded={() => {
@@ -337,9 +334,10 @@ export default function BackgroundMusic() {
               }, 50)
             }}
           >
-            {/* Main audio source - Sample MP3 */}
+            {/* Multiple audio sources for better compatibility */}
+            <source src="/audio/tabola-bale.mp3" type="audio/mpeg" />
             <source src="/audio/sample.mp3" type="audio/mpeg" />
-            
+            <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3" type="audio/mpeg" />
             
             Your browser does not support the audio element.
           </audio>
