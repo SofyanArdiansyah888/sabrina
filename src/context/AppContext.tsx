@@ -162,6 +162,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
                 bank: "Bank BCA",
                 accountNumber: "1100421182",
                 accountName: "Riang Sabrina"
+              },
+              {
+                bank: "Bank Mandiri",
+                accountNumber: "1520033993342",
+                accountName: "YUDHA ARFAN PUTRA PR"
               }
             ]
           },
