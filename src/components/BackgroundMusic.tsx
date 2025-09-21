@@ -384,8 +384,7 @@ export default function BackgroundMusic() {
           >
             {/* Main audio source - Sample MP3 */}
             <source src="/audio/sample.mp3" type="audio/mpeg" />
-            {/* Fallback: Online music */}
-            <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" type="audio/wav" />
+            
             
             Your browser does not support the audio element.
           </audio>
