@@ -8,23 +8,23 @@ import { useLanguage } from '../context/LanguageContext'
 // Hero background images with positioning
 const heroImages = [
   { 
-    src: '/images/Holagerphoto-225 (1).jpg',
+    src: '/images/holager-bride.jpg',
     position: 'center center'
   },
   { 
-    src: '/images/Holagerphoto-32.jpg',
+    src: '/images/holager-groom.jpg',
     position: 'center center'
   },
   { 
-    src: '/images/WhatsApp Image 2025-09-18 at 18.10.49_e1947f44.jpg',
+    src: '/images/whatsapp-1.jpg',
     position: 'center center'
   },
   { 
-    src: '/images/WhatsApp Image 2025-09-18 at 18.14.57_826840b9.jpg',
+    src: '/images/whatsapp-2.jpg',
     position: 'center center'
   },
   { 
-    src: '/images/WhatsApp Image 2025-09-18 at 18.14.58_0351cf00.jpg',
+    src: '/images/whatsapp-3.jpg',
     position: 'center center'
   }
 ]
