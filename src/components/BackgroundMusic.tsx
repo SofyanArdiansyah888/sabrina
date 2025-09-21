@@ -336,9 +336,8 @@ export default function BackgroundMusic() {
             }}
           >
             {/* Multiple audio sources for better compatibility */}
-            <source src="/audio/tabola-bale.mp3" type="audio/mpeg" />
             <source src="/audio/sample.mp3" type="audio/mpeg" />
-            <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3" type="audio/mpeg" />
+            
             
             Your browser does not support the audio element.
           </audio>
