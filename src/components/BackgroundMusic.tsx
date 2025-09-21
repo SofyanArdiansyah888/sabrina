@@ -12,6 +12,21 @@ export default function BackgroundMusic() {
   const [hasInteracted, setHasInteracted] = useState(false)
   const audioRef = useRef<HTMLAudioElement>(null)
 
+  // Global music trigger function that can be called from anywhere
+  window.startBackgroundMusic = () => {
+    console.log('Global music trigger called')
+    if (audioRef.current && !isPlaying) {
+      audioRef.current.muted = false
+      audioRef.current.volume = volume
+      audioRef.current.play().then(() => {
+        setIsPlaying(true)
+        setIsMuted(false)
+        setHasInteracted(true)
+        console.log('Music started via global trigger')
+      }).catch(console.error)
+    }
+  }
+
   // Define attemptAutoplay function outside useEffect
   const attemptAutoplay = async () => {
     if (!audioRef.current) {
@@ -52,7 +67,7 @@ export default function BackgroundMusic() {
     }
   }
 
-  // Enhanced autoplay attempt
+  // Enhanced autoplay attempt with production-focused strategy
   useEffect(() => {
     // Try multiple times with different delays
     const tryAutoplay = async () => {
@@ -62,17 +77,33 @@ export default function BackgroundMusic() {
       }
     }
 
-    // Multiple immediate attempts
+    // Immediate attempts for development
     tryAutoplay()
+    setTimeout(tryAutoplay, 50)
     setTimeout(tryAutoplay, 100)
-    setTimeout(tryAutoplay, 300)
+    setTimeout(tryAutoplay, 200)
     setTimeout(tryAutoplay, 500)
     setTimeout(tryAutoplay, 1000)
-    setTimeout(tryAutoplay, 2000)
-    setTimeout(tryAutoplay, 5000)
     
-    // Setup interaction listeners immediately
+    // Setup interaction listeners immediately for production
     setupInteractionListeners()
+    
+    // Special handling for production environment
+    if (typeof window !== 'undefined') {
+      // Try when page becomes visible
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden && !isPlaying) {
+          setTimeout(tryAutoplay, 100)
+        }
+      })
+      
+      // Try when page gets focus
+      window.addEventListener('focus', () => {
+        if (!isPlaying) {
+          setTimeout(tryAutoplay, 100)
+        }
+      })
+    }
   }, [])
 
   // Continuous autoplay attempts
@@ -102,37 +133,46 @@ export default function BackgroundMusic() {
   }, [showNotification])
 
 
-  // Setup interaction listeners for autoplay
+  // Setup interaction listeners for autoplay - More Aggressive
   const setupInteractionListeners = () => {
     const handleFirstInteraction = async () => {
+      console.log('User interaction detected, starting music...')
       setHasInteracted(true)
       setShowNotification(false)
       
       if (audioRef.current) {
         try {
           audioRef.current.volume = volume
+          audioRef.current.muted = false
           await audioRef.current.play()
           setIsPlaying(true)
+          setIsMuted(false)
+          console.log('Music started successfully after user interaction')
         } catch (error) {
           console.log('Error playing audio:', error)
         }
       }
     }
 
-    // Multiple event types for maximum coverage
-    const events = ['click', 'touchstart', 'keydown', 'scroll', 'mousemove', 'mouseenter', 'focus', 'blur', 'resize']
+    // More comprehensive event types for maximum coverage
+    const events = [
+      'click', 'touchstart', 'touchend', 'touchmove', 
+      'keydown', 'keyup', 'scroll', 'wheel',
+      'mousemove', 'mouseenter', 'mouseover', 'mousedown',
+      'focus', 'blur', 'resize', 'load', 'DOMContentLoaded',
+      'visibilitychange', 'pageshow'
+    ]
+    
     events.forEach(event => {
       document.addEventListener(event, handleFirstInteraction, { once: true, passive: true })
+      window.addEventListener(event, handleFirstInteraction, { once: true, passive: true })
     })
-
-    // Also try on window focus
-    window.addEventListener('focus', handleFirstInteraction, { once: true })
     
     return () => {
       events.forEach(event => {
         document.removeEventListener(event, handleFirstInteraction)
+        window.removeEventListener(event, handleFirstInteraction)
       })
-      window.removeEventListener('focus', handleFirstInteraction)
     }
   }
 
@@ -143,22 +183,40 @@ export default function BackgroundMusic() {
     }
   }, [hasInteracted, volume])
 
-  // Set initial audio properties
+  // Set initial audio properties with immediate play attempt
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.volume = volume
       audioRef.current.loop = true
       audioRef.current.preload = 'auto'
-      audioRef.current.muted = false
+      audioRef.current.muted = true // Start muted for better autoplay success
       
-      // Additional autoplay attempt when audio loads
-      audioRef.current.addEventListener('canplaythrough', () => {
-        if (!hasInteracted) {
-          attemptAutoplay()
-        }
-      })
+      // Multiple event listeners for immediate autoplay
+      const audioElement = audioRef.current
+      
+      const playWhenReady = () => {
+        console.log('Audio ready, attempting autoplay...')
+        attemptAutoplay()
+      }
+      
+      audioElement.addEventListener('canplay', playWhenReady)
+      audioElement.addEventListener('canplaythrough', playWhenReady)
+      audioElement.addEventListener('loadeddata', playWhenReady)
+      audioElement.addEventListener('loadedmetadata', playWhenReady)
+      
+      // Immediate attempt if already loaded
+      if (audioElement.readyState >= 2) {
+        playWhenReady()
+      }
+      
+      return () => {
+        audioElement.removeEventListener('canplay', playWhenReady)
+        audioElement.removeEventListener('canplaythrough', playWhenReady)
+        audioElement.removeEventListener('loadeddata', playWhenReady)
+        audioElement.removeEventListener('loadedmetadata', playWhenReady)
+      }
     }
-  }, [volume, hasInteracted])
+  }, [volume])
 
   const toggleMusic = async () => {
     if (!audioRef.current) return
@@ -203,11 +261,19 @@ export default function BackgroundMusic() {
     <AnimatePresence>
       {isVisible && (
         <>
-          {/* Invisible Autoplay Trigger */}
-          {!isPlaying && !hasInteracted && (
-            <div className="fixed inset-0 z-40 pointer-events-none">
+          {/* Invisible Autoplay Trigger - More Aggressive */}
+          {!isPlaying && (
+            <div className="fixed inset-0 z-50 pointer-events-none">
               <button
                 onClick={() => {
+                  attemptAutoplay()
+                  setHasInteracted(true)
+                }}
+                onMouseEnter={() => {
+                  attemptAutoplay()
+                  setHasInteracted(true)
+                }}
+                onTouchStart={() => {
                   attemptAutoplay()
                   setHasInteracted(true)
                 }}

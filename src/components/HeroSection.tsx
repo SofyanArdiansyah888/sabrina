@@ -317,6 +317,12 @@ export default function HeroSection() {
                   size="lg"
                   className="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-lora font-medium px-8 py-3 rounded-xl shadow-xl hover:shadow-amber-500/25 transition-all duration-300 border-0 w-full"
                   onClick={() => {
+                    // Trigger background music immediately when "Buka Undangan" is clicked
+                    if (typeof window !== 'undefined' && window.startBackgroundMusic) {
+                      window.startBackgroundMusic()
+                    }
+                    
+                    // Scroll to couple profile
                     const element = document.getElementById('couple-profile')
                     element?.scrollIntoView({ behavior: 'smooth' })
                   }}
