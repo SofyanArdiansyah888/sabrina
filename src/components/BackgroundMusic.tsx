@@ -1,14 +1,13 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { Pause, Play, Volume2, VolumeX } from 'lucide-react'
+import { Pause, Play } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
-import { useLanguage } from '../context/LanguageContext'
 
 export default function BackgroundMusic() {
-  const { t } = useLanguage()
+  // const { t } = useLanguage()
   const [isVisible] = useState(true) // Show component but hide controls
   const [isPlaying, setIsPlaying] = useState(false)
-  const [isMuted, setIsMuted] = useState(true) // Start muted for autoplay
-  const [volume, setVolume] = useState(1.0)
+  const [_, setIsMuted] = useState(true) // Start muted for autoplay
+  const [volume] = useState(1.0)
   const [showNotification, setShowNotification] = useState(false)
   const [hasInteracted, setHasInteracted] = useState(false)
   const audioRef = useRef<HTMLAudioElement>(null)
@@ -185,20 +184,20 @@ export default function BackgroundMusic() {
     setShowNotification(false)
   }
 
-  const toggleMute = () => {
-    if (audioRef.current) {
-      audioRef.current.muted = !isMuted
-      setIsMuted(!isMuted)
-    }
-  }
+  // const toggleMute = () => {
+  //   if (audioRef.current) {
+  //     audioRef.current.muted = !isMuted
+  //     setIsMuted(!isMuted)
+  //   }
+  // }
 
-  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newVolume = parseFloat(e.target.value)
-    setVolume(newVolume)
-    if (audioRef.current) {
-      audioRef.current.volume = newVolume
-    }
-  }
+  // const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const newVolume = parseFloat(e.target.value)
+  //   setVolume(newVolume)
+  //   if (audioRef.current) {
+  //     audioRef.current.volume = newVolume
+  //   }
+  // }
 
 
 
