@@ -1,28 +1,7 @@
 {
-  "version": 2,
-  "headers": [
-    {
-      "source": "/audio/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    },
-    {
-      "source": "/images/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    }
-  ],
   "rewrites": [
     {
-      "source": "/((?!api/|images/|audio/|config.json|assets/).*)",
+      "source": "/((?!_next/static|_next/image|favicon.ico|images|audio|config.json|assets).*)",
       "destination": "/index.html"
     }
   ]
